@@ -11,6 +11,9 @@ public class ShoppingCart {
     }
 
     public void addProduct(Products p){
+        if (p == null){
+            throw new RuntimeException("Adding invalid product");
+        }
         if(this.product == null) {
             this.product = p;
             System.out.println(p.getName() + " has been added to your shopping cart. Current value of shopping cart is: " + this.getTotalShoppingCartValue() + " Expected delivery time: " + p.deliveryTime() + " days.");
@@ -47,10 +50,10 @@ public class ShoppingCart {
 
         while (product != null)
         {
-            if (product.isAvailable()) {
+            if (!product.isAvailable()) {
                 throw new RuntimeException("Product is not available at the moment. Expected delivery in "+product.deliveryTime()+" days.");
             } else
-            product.setQuantity(product.getQuantity()-1);
+            product.sell();
             product = product.getNextProduct();
         }
 

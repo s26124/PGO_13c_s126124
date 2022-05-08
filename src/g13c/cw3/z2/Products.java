@@ -10,10 +10,10 @@ public class Products {
 
 
     public Products(String name, ProductType productType, double price, int quantity) {
-        this.name = name;
-        this.productType = productType;
+        setName(name);
+        setProductType(productType);
         setPrice(price);
-        this.quantity = quantity;
+        setQuantity(quantity);
     }
 
 
@@ -27,19 +27,17 @@ public class Products {
 
 
     public void sell(){
-        if (isAvailable()){
+        if (!isAvailable()){
             throw new RuntimeException("Product is not available.");
         } else
             quantity--;
     }
 
-    public void IncreaseQuantity(int deliveredQty){
+    public void increaseQuantity(int deliveredQty){
         setQuantity(getQuantity()+deliveredQty);
         //setDeliveryTime(0); // after delivery product is available again
     }
 
-
-    public int IncreaseQuantity(){return 1;}
 
     // Getters
     public String getName() {
@@ -55,23 +53,32 @@ public class Products {
         return quantity;
     }
     public boolean isAvailable() {
-        return quantity <= 0;
+        return quantity > 0;
     }
 
     public int deliveryTime() {
-        if (quantity > 0 || storage == null){
+        if (isAvailable() || storage == null){
             return 0;
         } else
             return storage.getDeliveryTime();
     }
 
+
+
     // Setters
 
     public void setName(String name) {
+
+        if (name == null || name.isEmpty()) {
+            throw new RuntimeException("Name cannot be empty");
+        }
         this.name = name;
     }
 
     public void setProductType(ProductType productType) {
+        if (productType == null) {
+            throw new RuntimeException("Product type cannot be empty");
+        }
         this.productType = productType;
     }
 

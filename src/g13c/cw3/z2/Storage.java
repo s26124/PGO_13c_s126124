@@ -8,7 +8,7 @@ public class Storage {
     private ArrayList<Products> products = new ArrayList<>();
 
     public Storage(int deliveryTime) {
-        this.deliveryTime = deliveryTime;
+        setDeliveryTime(deliveryTime);
     }
 
     public void addProduct(Products product){
@@ -21,6 +21,7 @@ public class Storage {
     }
 
     public void setDeliveryTime(int deliveryTime) {
+        if (deliveryTime<0){throw new RuntimeException("Delivery time cannot be negative.");}
         this.deliveryTime = deliveryTime;
     }
 

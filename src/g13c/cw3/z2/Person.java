@@ -12,15 +12,13 @@ public class Person {
 
     // Constructors
     public Person(String name, String surname, double moneyInCash, double moneyInCard) {
-        this.name = name;
-        this.surname = surname;
-        this.moneyInCash = moneyInCash;
-        this.moneyInCard = moneyInCard;
+        setName(name);
+        setSurname(surname);
+        setMoneyInCash(moneyInCash);
+        setMoneyInCard(moneyInCard);
     }
 
     // Methods
-
-
     public ShoppingCart getCurrentShoppingCart() {
         return currentShoppingCart;
     }
@@ -42,14 +40,12 @@ public class Person {
         if (getMoneyInCash() < this.currentShoppingCart.getTotalShoppingCartValue()){
             throw new RuntimeException("Unable to complete transaction. Please use another form of payment.");
         }
-
-
+        setMoneyInCash(getMoneyInCash()- currentShoppingCart.getTotalShoppingCartValue());
+        System.out.println("Value of purchase is: "+ currentShoppingCart.getTotalShoppingCartValue()+" dollars. On your wallet is now "+ getMoneyInCash() + "dollars");
+        currentShoppingCart.sell();
         historyShoppingCart.add(currentShoppingCart);
         currentShoppingCart=null;
         }
-        // transaction, odlaczanie wagonikow i odejmowanie qty z dostepnych produktow
-
-
 
     public void buyByCard(){
         if (getMoneyInCard() < this.currentShoppingCart.getTotalShoppingCartValue()){
@@ -84,11 +80,13 @@ public class Person {
 
     // Setters
     public void setName(String name) {
-        if (name == null || name.isEmpty()) {
+        if (name.matches("[a-zA-Z]+")) { // only letters
+            this.name = name;
+        } else {
             throw new RuntimeException("Name cannot be empty");
         }
-        this.name = name;
     }
+
 
     public void setSurname(String surname) {
         if (surname == null || surname.isEmpty()) {

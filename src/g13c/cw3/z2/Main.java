@@ -5,13 +5,13 @@ public class Main {
 
         // List of Products
         Products p1 = new Products("Joghurt", ProductType.Consumable, 1.69,1);
-        Products p2 = new Products("Chocolate", ProductType.Consumable, 59.99,0);
-        Products p3 = new Products("Laptop", ProductType.Electronic, 3499.00,0);
+        Products p2 = new Products("Chocolate", ProductType.Consumable, 59.99,1);
+        Products p3 = new Products("Laptop", ProductType.Electronic, 3499.00,1);
         Products p4 = new Products("Bricks", ProductType.Entertainment, 149.59,10);
-        Products p5 = new Products("Unicorn", ProductType.Entertainment, 29.99,0);
+        Products p5 = new Products("Unicorn", ProductType.Entertainment, 29.99,1);
 
         // List of customers
-        Person client1 = new Person("Jan", "Kowalski",1000,5000);
+        Person client1 = new Person("Svitlana", "Kowalski",1000,5000);
         Person client2 = new Person("Pawel", "Nowak",100,0);
 
         // Storage
@@ -27,15 +27,21 @@ public class Main {
 
         // Making order
         client1.MakeOrder();
-        client1.getCurrentShoppingCart().addProduct(p3);
+        client1.getCurrentShoppingCart().addProduct(p1);
         client1.getCurrentShoppingCart().addProduct(p2);
         client1.getCurrentShoppingCart().addProduct(p4);
 
         // Buying in cash
-        client1.buyByCard();
+        client1.buyByCash();
 
-
-
+        System.out.println(p3.getQuantity());
+        System.out.println(p3.isAvailable());
+        System.out.println(p3.deliveryTime());
+        // Product is being delivered.
+        p3.increaseQuantity(5);
+        System.out.println(p3.getQuantity());
+        System.out.println(p3.isAvailable());
+        System.out.println(p3.deliveryTime());
     }
 
 
